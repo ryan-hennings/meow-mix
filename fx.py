@@ -13,6 +13,10 @@ def get_track(operations):
     for op in operations:
         if not op["sound"] in sounds:
             sounds[op["sound"]] = AudioSegment.from_file(op["sound"], format="wav")
-        res = res.append(pitch(sounds[op["sound"]], op["octave"]), crossfade=0)
+        if op["type"] == "pitch":
+            res = res.append(pitch(sounds[op["sound"]], op["octave"]), crossfade=0)
+        if op["type"] == "slice":
+            sz = sounds[op["sound"]][op["start"]:op["end"]]
+            res = res.append(sz, crossfade=0)
 
     return res
