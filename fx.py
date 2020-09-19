@@ -16,7 +16,12 @@ def get_track(operations):
         if op["type"] == "pitch":
             res = res.append(pitch(sounds[op["sound"]], op["octave"]), crossfade=0)
         if op["type"] == "slice":
-            sz = sounds[op["sound"]][op["start"]:op["end"]]
+            l = len(sounds[op["sound"]])
+            start = op["start"] % l
+            end = op["end"] % l
+            if start > end:
+                end = start + 50 % l
+            sz = sounds[op["sound"]][start:end]
             res = res.append(sz, crossfade=0)
 
     return res

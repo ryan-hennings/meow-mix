@@ -4,6 +4,7 @@ from fx import pitch
 from alg import mergeSort
 
 cut = AudioSegment.from_file("sounds/perc-g.wav", format="wav")
+
 cut = cut[:200]
 res = cut
 
